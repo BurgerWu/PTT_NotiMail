@@ -86,7 +86,7 @@ def retrieve_title_date_href(div_content, last_check_date):
     #Return information dictionary
     return {'date': date_dt, 'href': href, 'title': title, 'validity': validity}
 
-def get_ptt_content_list(last_check_date, url = "https://www.ptt.cc/bbs/forsale/index.html", content_list = []):
+def get_ptt_content_list(last_check_date, url, content_list = []):
     """
     This function retrieves all available content list from the PPT url, and it uses recursion method to continuously dig into 
     next page until content data has reached out-of-search date(That is, one day before last check date).
@@ -99,7 +99,7 @@ def get_ptt_content_list(last_check_date, url = "https://www.ptt.cc/bbs/forsale/
     """
     #Declare global variable check_date_flag to track if page search has reach end of search date
     global check_date_flag
-    
+
     #Initiate check_date_flag as False
     check_date_flag = False
 
@@ -135,7 +135,7 @@ def get_ptt_content_list(last_check_date, url = "https://www.ptt.cc/bbs/forsale/
     if check_date_flag != True:
 
         #Modify new url with next page index and pass on the content list
-        new_url = "https://www.ptt.cc/bbs/forsale/index" + str(next_pg_index) + ".html"    
+        new_url = re.findall(r'(.*index)[0-9 ]*.html', url)[0] + str(next_pg_index) + ".html"    
         content_list = get_ptt_content_list(last_check_date, new_url, content_list)
 
     #Return final content list

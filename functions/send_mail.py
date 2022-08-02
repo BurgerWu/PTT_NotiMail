@@ -5,7 +5,7 @@ import os
 from datetime import datetime
 import smtplib
 
-def send_mail(receiever_address, last_check_time, keyword, mail_content_list):  
+def send_mail(receiever_address, last_check_time, keyword, board_name, mail_content_list):  
     """
     This function sends email using smtplib library with content generated from input content list and template text.
     Input: 
@@ -28,14 +28,14 @@ def send_mail(receiever_address, last_check_time, keyword, mail_content_list):
 
     #Open mail template and insert title content to mail body
     with open("mail_template.txt",'r+') as f:
-        mail_content = f.read().format(keyword, last_check_time, title_content)
+        mail_content = f.read().format(keyword, board_name, last_check_time, title_content)
 
     #Define email sender and corresponding password
     email_sender = 'aritek1x5@gmail.com'
     email_password = os.getenv('Python_email_credentials')
 
     #Set the subject and information about the mail
-    subject = 'PTT Notification Mail for {} - {}'.format(keyword, datetime.strftime(datetime.now(),"%Y-%m-%d"))
+    subject = 'PTT Notification Mail for {} in {} - {}'.format(keyword, board_name, datetime.strftime(datetime.now(),"%Y-%m-%d"))
     em = EmailMessage()
     em['From'] = email_sender
     em['To'] = receiever_address

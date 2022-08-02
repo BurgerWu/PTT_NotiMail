@@ -1,6 +1,6 @@
 Dear User<br>
 <br>
-We have detected relevant items according to your input keyword {} since last checking time {}.<br>
+We have detected relevant items according to your input keyword {} in board named {} since last checking time {}.<br>
 <br>
 The title of items are listed below:<br>
 {}
