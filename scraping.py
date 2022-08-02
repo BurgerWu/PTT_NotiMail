@@ -16,7 +16,6 @@ def get_max_index(soup):
             possible_index.append(int(find_index[i]))
         except:
             pass
-    print(max(possible_index))   
     return(max(possible_index))
 
 def get_ptt_content_title():
