@@ -1,0 +1,8 @@
+Dear User<br>
+<br>
+We have detected relevant items according to your input keyword {} since last checking time {}.<br>
+<br>
+The title of items are listed below:<br>
+{}
+<br>
+Thanks and have a nice day!<br>

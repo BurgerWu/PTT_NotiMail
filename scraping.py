@@ -1,34 +1,41 @@
-import re
-import bs4
-from bs4 import BeautifulSoup
-import requests
+#import modules and packages
+from datetime import datetime
+from functions.send_mail import *
+from functions.scraping import *
+import json
+from datetime import datetime
 
-def get_keywords():
-    with open('keyword_bags.txt','r+',encoding="utf-8") as f:
-        kw_txt = f.read()
-    return kw_txt
-
-def get_max_index(soup):
-    find_index = re.findall(r'index([0-9]*).html', soup)
-    possible_index = []
-    for i in range(len(find_index)):
-        try:
-            possible_index.append(int(find_index[i]))
-        except:
-            pass
-    return(max(possible_index))
-
-def get_ptt_content_title():
-    url = "https://www.ptt.cc/bbs/forsale/index.html"
-    response = requests.get(url)
-    soup = BeautifulSoup(response.text, "html.parser")
-    result = soup.find_all("div", 'title')
-    print(result[-1])
-    return response.text
 
 def main():
-    kw_txt_bags = get_keywords()
-    webpage_soup = get_ptt_content_title()
-    max_pg_index = get_max_index(webpage_soup)
+    """
+    This main function pipes the overall process of scraping information and sending notification emails
+    """
+    #Retrieve relevant information from information.json file
+    info_json = load_output_json()
+    kw_txt_bags = info_json['keywords']
+    last_check_time = datetime.strptime(info_json['last_check_time'],"%Y-%m-%d")
+
+    #Obtain content list from ptt after last check time
+    content_list = get_ptt_content_list(last_check_time)
+
+    #Initiate kwyword specific content dictionary
+    kw_content_dict = {}
+
+    #Iterate through keywords to retrieve content from content list and send emails
+    for keyword in kw_txt_bags:
+
+        #Check if keyword appears in title in content list
+        kw_content_dict[keyword] = [x for x in content_list if keyword in x['title']]  
+
+        #If there is keyword appearing in title in content list, trigger email sending process
+        if len(kw_content_dict[keyword]) >= 1:
+            send_mail(info_json['email_receiver'], info_json['last_check_time'], keyword, kw_content_dict[keyword])
+
+    #Modify information.json file to renew last check time
+    info_json["last_check_time"] = datetime.strftime(datetime.now(),"%Y-%m-%d")
+
+    #Update information.json with new check time
+    with open('information.json','w', encoding='utf-8') as json_file:
+        return json.dump(info_json, json_file, ensure_ascii = False)
 
 main()
