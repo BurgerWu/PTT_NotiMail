@@ -1,13 +1,13 @@
 # PTT_NotiMail
+<img src="images/PTT.png"><img src="images/Python.png"/>
+## 1. Motivation
 
-##1. Motivation
+## 2. Introduction
 
-##2. Introduction
+## 3. Project Structure
 
-##3. Project Structure
+## 4. How to deploy to your own device
 
-##4. How to deploy to your own device
+## 5. Summary
 
-##5. Summary
-
-##6. Acknowledgement
+## 6. Acknowledgement
