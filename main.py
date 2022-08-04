@@ -17,22 +17,15 @@ def main():
 
     #Iterate through different board of interest
     for board_name in list(info_json.keys()):
-        print(board_name)
+
         #Retrieving keywords from board of interest
         kw_txt_bags = info_json[board_name]['keywords']
 
         #If last check date is today, stop the operation for this board. 
         #If last check date is empty, fill it with today.
         if len(info_json[board_name]['last_check_time']) != 0:
-            print("1")
-            if info_json[board_name]['last_check_time'] != datetime.now().date():
-                print("2")
-                last_check_time = datetime.strptime(info_json[board_name]['last_check_time'],"%Y-%m-%d")
-            else:
-                print("Already performed search for today, see ya tomorrow!")
-                continue
+            last_check_time = datetime.strptime(info_json[board_name]['last_check_time'],"%Y-%m-%d")
         else:
-            print('3')
             last_check_time = datetime.strptime(datetime.strftime(datetime.now(),"%Y-%m-%d"), "%Y-%m-%d")
 
 
