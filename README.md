@@ -52,7 +52,7 @@ There are more than 10000 boards in PTT. The information flux within several hot
 - 2. Download or clone this repository to your local device
 - 3. Modify information.json file according to your demand
 - 4. Rewrite the directory path within ptt_notimail.bat batch file
-- 5. Double click the batch file whenever you want to run keyword search (or your can put shortcut of the batch file to startup folder to automatically run when startup)=>Follow <a href="https://www.youtube.com/watch?v=g_j6ILT-X0k">instruction from Microsoft</a>.If you are using Linux system, you can also create script running this program with similar command.
+- 5. Double click the batch file whenever you want to run keyword search (or your can put shortcut of the batch file to startup folder to automatically run when startup)=>Follow <a href="https://support.microsoft.com/en-us/windows/add-an-app-to-run-automatically-at-startup-in-windows-10-150da165-dcd9-7230-517b-cf3c295d89dd">instruction from Microsoft</a>. If you are using Linux system, you can also create script running this program with similar command. Check <a href='https://www.taniarascia.com/how-to-create-and-use-bash-scripts/'>here</a> to see how to create and run bash scripts.
 - 6. Or you can use any form of execution of the main.py file.
 
 ## 5. Summary
