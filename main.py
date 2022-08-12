@@ -13,7 +13,6 @@ def main():
     #Retrieve relevant information from information.json file
     print('Retrieving information from json file')
     info_json = load_output_json()
-    print(list(info_json.keys()))
 
     #Iterate through different board of interest
     for board_name in list(info_json.keys()):
