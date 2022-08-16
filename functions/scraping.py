@@ -24,7 +24,7 @@ def get_next_index(response_txt):
     next_pg_index = re.findall(r'index([0-9]*).html">&lsaquo; 上頁</a>', response_txt)[0]
 
     #Return the index as output
-    return(next_pg_index)
+    return next_pg_index
 
 def retrieve_title_date_href(div_content, last_check_date):
     """
@@ -60,7 +60,7 @@ def retrieve_title_date_href(div_content, last_check_date):
         if date_dt > datetime.now():
             date_str = '{}-{}-{}'.format(present_year-1, date_str_list[0], date_str_list[1])
             date_dt = datetime.strptime(date_str, "%Y-%m-%d")
-        
+
         #Check if the content date has reach invalid search date(That is, the day before last search date)
         if date_dt < last_check_date:
             check_date_flag = True
@@ -108,9 +108,14 @@ def get_ptt_content_list(last_check_date, url, content_list = []):
 
     #If the request works ok, process the response
     if response.status_code == requests.codes.ok:
+        resp_text = response.text
+        
+        #Check if r-list-sep division exists, this is the separation line of normal post and managerial posts(in case some managerial posts have no marking)
+        if '<div class="r-list-sep">' in resp_text:
+            resp_text = resp_text[:re.search(r'<div class="r-list-sep">', resp_text).start()]
 
         #Process the response with html parser
-        soup = BeautifulSoup(response.text, "html.parser")
+        soup = BeautifulSoup(resp_text, "html.parser")
 
         #Retrieve next page index from response text
         next_pg_index = get_next_index(response.text)
@@ -130,7 +135,7 @@ def get_ptt_content_list(last_check_date, url, content_list = []):
         content_list = content_list + processed_content_list
     else:
         content_list = processed_content_list
-    
+
     #If check_date_flag is triggered to True, stop further searching, else continue the recursion
     if check_date_flag != True:
 

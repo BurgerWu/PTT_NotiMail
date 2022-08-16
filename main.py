@@ -38,9 +38,11 @@ def main():
         #Iterate through keywords to retrieve content from content list and send emails
         for keyword in kw_txt_bags:
 
+            keyword = keyword.lower().strip()
+
             #Check if keyword appears in title in content list
             print('Working on keyword {} in {}.'.format(keyword, board_name))
-            kw_content_dict[keyword] = [x for x in content_list if keyword in x['title']]  
+            kw_content_dict[keyword] = [x for x in content_list if keyword in x['title'].lower()]  
 
             #If there is keyword appearing in title in content list, trigger email sending process
             if len(kw_content_dict[keyword]) >= 1:
